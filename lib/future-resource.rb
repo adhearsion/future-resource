@@ -1,5 +1,6 @@
 require "thread"
 require "monitor"
+require "timeout"
 
 class FutureResource
   def initialize
@@ -12,9 +13,11 @@ class FutureResource
   end
 
   def resource(timeout = nil)
-    @resource_lock.synchronize do
-      @resource_value_blocker.wait timeout unless defined? @resource
-      @resource
+    Timeout::timeout timeout do
+      @resource_lock.synchronize do
+        @resource_value_blocker.wait unless defined? @resource
+        @resource
+      end
     end
   end
 
