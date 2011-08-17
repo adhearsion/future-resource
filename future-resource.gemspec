@@ -4,12 +4,12 @@ require "future-resource/version"
 
 Gem::Specification.new do |s|
   s.name        = "future-resource"
-  s.version     = Future::Resource::VERSION
-  s.authors     = ["Ben Langfeld"]
-  s.email       = ["ben@langfeld.me"]
-  s.homepage    = ""
-  s.summary     = %q{TODO: Write a gem summary}
-  s.description = %q{TODO: Write a gem description}
+  s.version     = FutureResource::VERSION
+  s.authors     = ["Jay Phillips", "Ben Langfeld"]
+  s.email       = ["dev@adhearsion.com"]
+  s.homepage    = "https://github.com/adhearsion/future-resource"
+  s.summary     = %q{Wait on resources being set in the future}
+  s.description = %q{Sometimes a value is set asynchronously and you need to wait until it appears. Easy!}
 
   s.rubyforge_project = "future-resource"
 
