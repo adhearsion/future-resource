@@ -11,9 +11,9 @@ class FutureResource
     !!@resource_lock.synchronize { defined? @resource }
   end
 
-  def resource
+  def resource(timeout = nil)
     @resource_lock.synchronize do
-      @resource_value_blocker.wait unless defined? @resource
+      @resource_value_blocker.wait timeout unless defined? @resource
       @resource
     end
   end
