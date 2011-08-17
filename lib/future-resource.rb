@@ -8,7 +8,7 @@ class FutureResource
   end
 
   def set_yet?
-    @resource_lock.synchronize { defined? @resource }
+    !!@resource_lock.synchronize { defined? @resource }
   end
 
   def resource
