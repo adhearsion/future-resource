@@ -1,34 +1,34 @@
 require 'future-resource'
 
 describe FutureResource do
-  before(:all) do
-    @fr = FutureResource.new
-  end
-
   it "should create a FutureResource" do
-    @fr.should be_instance_of FutureResource 
+    fr = FutureResource.new
+    fr.should be_instance_of FutureResource 
   end
 
   it "should not be ready yet" do
-    @fr.should_not be_set_yet
+    subject.should_not be_set_yet
   end
 
   it "should set resource" do
-    @fr.resource = :foo
+    subject.resource = :foo
   end
 
   it "should be ready" do
-    @fr.should be_set_yet
+    subject.resource = :foo
+    subject.should be_set_yet
   end
 
   it "should raise ResourceAlreadySetException when setting value that is already set" do
+    subject.resource = :foo
     expect {
-      @fr.resource = :bar
+      subject.resource = :bar
     }.to raise_error FutureResource::ResourceAlreadySetException
   end
 
   it "should return the resource" do
-    @fr.resource.should === :foo 
+    subject.resource = :foo
+    subject.resource.should === :foo 
   end
 
 
