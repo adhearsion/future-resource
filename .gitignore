@@ -2,3 +2,7 @@
 .bundle
 Gemfile.lock
 pkg/*
+tmp/*
+*.swp
+doc/*
+spec/reports
