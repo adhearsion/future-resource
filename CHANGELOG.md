@@ -1,4 +1,6 @@
 # develop
+
+# 1.0.0 - 2012-03-13
   * Feature: Better testing and documentation
 
 # 0.0.2
