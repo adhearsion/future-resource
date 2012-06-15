@@ -58,7 +58,7 @@ class FutureResource
   
   ##
   # Sets the value for the resource, making it available for all waiting and following reads.
-  # Resourcs values can only be set once.
+  # Resource values can only be set once.
   #
   # @param [Object] resource any value to be set for the resource
   #
