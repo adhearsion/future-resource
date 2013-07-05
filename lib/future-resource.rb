@@ -28,7 +28,7 @@ class FutureResource
     @resource_value_blocker = @resource_lock.new_cond
     @terminated             = false
   end
-  
+
   ##
   # Checks if the value of the resource placeholder has been set yet.
   #
@@ -69,7 +69,7 @@ class FutureResource
       end
     end
   end
-  
+
   ##
   # Sets the value for the resource, making it available for all waiting and following reads.
   # Resource values can only be set once.  Calling this method on a terminated resource is
