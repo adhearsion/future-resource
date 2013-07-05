@@ -67,4 +67,13 @@ describe FutureResource do
     end
     subject.resource.should === :foo
   end
+
+  it "should allow an alternative condition to be provided" do
+    resource = described_class.new(ConditionVariable.new)
+    Thread.new do
+      sleep 1
+      subject.resource = :foo
+    end
+    subject.resource.should === :foo
+  end
 end

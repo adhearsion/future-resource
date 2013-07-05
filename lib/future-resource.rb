@@ -23,9 +23,9 @@ class FutureResource
   ##
   # Create a new FutureResource.
   #
-  def initialize
+  def initialize(blocker = nil)
     @resource_lock          = Monitor.new
-    @resource_value_blocker = @resource_lock.new_cond
+    @resource_value_blocker = blocker || @resource_lock.new_cond
     @terminated             = false
   end
 

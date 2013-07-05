@@ -1,4 +1,5 @@
 # develop
+  * Feature: Allow setting an alternative condition to permit use of Celluloid::Condition in place of ConditionVariable
 
 # 1.0.0 - 2012-03-13
   * Feature: Better testing and documentation
