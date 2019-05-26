@@ -20,6 +20,10 @@ require "timeout"
 #   p fr.resource
 #
 class FutureResource
+
+  NULL = Object.new
+  private_constant :NULL
+
   ##
   # Create a new FutureResource.
   #
@@ -27,6 +31,7 @@ class FutureResource
     @resource_lock          = Monitor.new
     @resource_value_blocker = blocker || @resource_lock.new_cond
     @terminated             = false
+    @resource               = NULL
   end
 
   ##
@@ -35,7 +40,7 @@ class FutureResource
   # @return [Boolean]
   #
   def set_yet?
-    !!@resource_lock.synchronize { defined? @resource }
+    @resource_lock.synchronize { ! @resource.equal?(NULL) }
   end
 
   ##
@@ -44,7 +49,7 @@ class FutureResource
   # @return [Boolean]
   #
   def terminated?
-    !!@resource_lock.synchronize { @terminated }
+    @resource_lock.synchronize { @terminated }
   end
 
   ##
@@ -61,12 +66,11 @@ class FutureResource
   # @return [Object]
   #
   def resource(timeout = nil)
-    ::Timeout::timeout timeout do
-      @resource_lock.synchronize do
-        @resource_value_blocker.wait unless set_yet? or terminated?
-        raise Terminated if terminated?
-        @resource
-      end
+    @resource_lock.synchronize do
+      @resource_value_blocker.wait(timeout) unless set_yet? || terminated?
+      raise Terminated if terminated?
+      raise Timeout.new(timeout.to_s) if @resource.equal?(NULL)
+      @resource
     end
   end
 
