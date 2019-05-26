@@ -61,7 +61,7 @@ class FutureResource
   # @return [Object]
   #
   def resource(timeout = nil)
-    Timeout::timeout timeout do
+    ::Timeout::timeout timeout do
       @resource_lock.synchronize do
         @resource_value_blocker.wait unless set_yet? or terminated?
         raise Terminated if terminated?
@@ -115,6 +115,8 @@ class FutureResource
       super "Resource read attempt terminated"
     end
   end
+
+  Timeout = ::Timeout::Error
 
   private
 

@@ -68,6 +68,10 @@ describe FutureResource do
     subject.resource.should === :foo
   end
 
+  it "should raise on timeout" do
+    expect { subject.resource(0.5) }.to raise_error FutureResource::Timeout
+  end
+
   it "should allow an alternative condition to be provided" do
     resource = described_class.new(ConditionVariable.new)
     Thread.new do
