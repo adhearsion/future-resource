@@ -20,7 +20,9 @@ describe FutureResource do
     it { should be_set_yet }
     it { should_not be_terminated }
 
-    its(:resource) { should === :foo }
+    it "should have resource set" do
+      expect(subject.resource).to be :foo
+    end
 
     it "should raise ResourceAlreadySetException when setting value that is already set" do
       expect {
@@ -65,7 +67,7 @@ describe FutureResource do
       sleep 1
       subject.resource = :foo
     end
-    subject.resource.should === :foo
+    expect(subject.resource).to be :foo
   end
 
   it "should raise on timeout" do
@@ -78,6 +80,6 @@ describe FutureResource do
       sleep 1
       subject.resource = :foo
     end
-    subject.resource.should === :foo
+    expect(subject.resource).to be :foo
   end
 end
